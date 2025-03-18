@@ -36,7 +36,7 @@ mysql> \q
 Now, you are ready to create the database using the SQL dump file called *pas.dump* provided in this repo.  Type the following on the command line and hitting the enter key.
 
 ```
-mysqldump -u guru -p < pas.dump
+mysql -u guru -p < pas.dump
 ```
 
 This will drop the **pas** database if it exists and recreate it from scratch with all the table data. So, do not worry about deleting or experimenting with the database.
