@@ -15,36 +15,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `Assessed`
---
-
-DROP TABLE IF EXISTS `Assessed`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Assessed` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `student_id` int NOT NULL,
-  `assessment_id` int NOT NULL,
-  `scale_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `student_FK2_idx` (`student_id`),
-  KEY `scale_FK2_idx` (`scale_id`),
-  KEY `assessment_FK2_idx` (`assessment_id`),
-  CONSTRAINT `assessment_FK2` FOREIGN KEY (`assessment_id`) REFERENCES `Assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `scale_FK2` FOREIGN KEY (`id`) REFERENCES `Scale` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `student_FK2` FOREIGN KEY (`student_id`) REFERENCES `Student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Assessed`
---
-
-LOCK TABLES `Assessed` WRITE;
-/*!40000 ALTER TABLE `Assessed` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Assessed` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP DATABASE IF EXISTS pas;
+CREATE DATABASE pas;
+USE pas;
 
 --
 -- Table structure for table `Assessment`
@@ -71,34 +44,6 @@ CREATE TABLE `Assessment` (
 LOCK TABLES `Assessment` WRITE;
 /*!40000 ALTER TABLE `Assessment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Assessment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Category`
---
-
-DROP TABLE IF EXISTS `Category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Category` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `weight` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `title_idx` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Category`
---
-
-LOCK TABLES `Category` WRITE;
-/*!40000 ALTER TABLE `Category` DISABLE KEYS */;
-INSERT INTO `Category` VALUES (1,'Quality of Work','Consider the degree to which the student team member provides work that is accurate and complete.','1'),(2,'Timeliness of Work','Consider the student team member\'s timeliness of work.','1'),(3,'Task Support','Consider the amount of task support the student team member gives to other team members.','1'),(4,'Interaction','Consider how the student team member relates and communicates to other team members.','1'),(5,'Attendance','Consider the student team member\'s attendance at the group meetings.  (This includes in class meetings.)','1'),(6,'Responsibility','Consider the ability of the student team member to carry out a chosen or assigned task, the degree to which the student can be relied upon to complete a task.','1'),(7,'Involvement','Consider the extent to which the student team member participates in the exchange of information (does outside research, brings outside knowledge to group).','1'),(8,'Leadership','Consider how the team member engages in leadership activities.','1'),(9,'Overall Performance Rating','Consider the overall performance of the student team member while in the group.','1');
-/*!40000 ALTER TABLE `Category` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -129,34 +74,6 @@ INSERT INTO `Course` VALUES (1,'CSCI','211','Data Structures & Algorithms II'),(
 /*!40000 ALTER TABLE `Course` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `Enrolled`
---
-
-DROP TABLE IF EXISTS `Enrolled`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Enrolled` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `student_id` int NOT NULL,
-  `section_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `section_student_idx` (`student_id`,`section_id`),
-  KEY `section_FK_idx` (`section_id`),
-  CONSTRAINT `section_FK` FOREIGN KEY (`section_id`) REFERENCES `Section` (`id`),
-  CONSTRAINT `student_FK` FOREIGN KEY (`student_id`) REFERENCES `Student` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Enrolled`
---
-
-LOCK TABLES `Enrolled` WRITE;
-/*!40000 ALTER TABLE `Enrolled` DISABLE KEYS */;
-INSERT INTO `Enrolled` VALUES (5,1,1),(6,2,1),(7,3,1),(8,4,1),(9,5,1),(10,6,1),(11,7,1),(12,8,1),(13,9,1),(14,10,1),(15,11,1),(16,12,1),(17,13,1),(18,14,1),(19,15,1),(20,16,1),(21,17,1),(22,18,1),(23,19,1),(24,20,1);
-/*!40000 ALTER TABLE `Enrolled` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Group`
@@ -245,35 +162,6 @@ INSERT INTO `Rubric` VALUES (1,'Peer Assessment',1);
 UNLOCK TABLES;
 
 --
--- Table structure for table `Scale`
---
-
-DROP TABLE IF EXISTS `Scale`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Scale` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
-  `value` int NOT NULL,
-  `category_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `category_FK_idx` (`category_id`),
-  CONSTRAINT `category_FK` FOREIGN KEY (`category_id`) REFERENCES `Category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Scale`
---
-
-LOCK TABLES `Scale` WRITE;
-/*!40000 ALTER TABLE `Scale` DISABLE KEYS */;
-INSERT INTO `Scale` VALUES (1,'Produces unacceptable work, fails to meet minimum group or project requirements.',0,1),(2,'Occasionally produces work that meets minimum group or project requirements.',1,1),(3,'Meets minimum group or project requirements.',2,1),(4,'Regularly produces work that meets minimum requirements and sometimes exceeds project or group requirements.',3,1),(5,'Produces work that consistently exceeds established group or project requirements.',4,1),(6,'Fails to meet deadlines set by group.',0,2),(7,'Occasionally misses deadlines set by group.',1,2),(8,'Regularly meets deadlines set by group.',2,2),(9,'Consistently meets deadlines set by group and occasionally completes work ahead of schedule.',3,2),(10,'Consistently completes work ahead of schedule.',4,2),(11,'Gives no task support to other members.',0,3),(12,'Sometimes gives task support to other members.',1,3),(13,'Occasionally provides task support to other group members.',2,3),(14,'Consistently provides task support to other group members.',3,3),(15,'Consistently gives more task support than expected.',4,3),(16,'Behavior is detrimental to group.',0,4),(17,'Behavior is inconsistent and occasionally distracts group meetings.',1,4),(18,'Regularly projects appropriate team behavior including: listening to others, and allowing his/her ideas to be criticized.',2,4),(19,'Consistently demonstrates appropriate team behavior.',3,4),(20,'Consistently demonstrates exemplary team behavior.',4,4),(21,'Failed to attend the group meetings.',0,5),(22,'Attended 1%-32% of the group meetings.',1,5),(23,'Attended 33%-65% of the group meetings.',2,5),(24,'Attended 66%-99% of the group meetings.',3,5),(25,'Attended 100% of the group meetings.',4,5),(26,'Is unwilling to carry out assigned tasks.',0,6),(28,'Sometimes carries out assigned tasks but never volunteers to do a task.',1,6),(29,'Carries out assigned tasks but never volunteers to do a task.',2,6),(30,'Consistently carries out assigned tasks and occasionally volunteers for other tasks.',3,6),(31,'Consistently carries out assigned tasks and always volunteers for other tasks.',4,6),(32,'Fails to participate in group discussions and fails to share relevant material.',0,7),(33,'Sometimes participates in group discussions and rarely contributes relevant material for the project.',1,7),(34,'Takes part in group discussions and shares relevant information.',2,7),(35,'Regularly participates in group discussion and sometimes exceeds expectations.',3,7),(36,'Consistently exceeds group expectations for participation and consistently contributes relevant material to project.',4,7),(37,'Does not display leadership skills.',0,8),(38,'Displays minimal leadership skills in team.',1,8),(39,'Occasionally assumes leadership role.',2,8),(40,'Regularly displays good leadership skills.',3,8),(41,'Consistently demonstrates exemplary leadership skills.',4,8),(42,'Performance significantly fails to meet group requirements.',0,9),(43,'Performance fails to meet some group requirements.',1,9),(44,'Performance meets all group requirements.',2,9),(45,'Performance meets all group requirements consistently and sometimes exceeds requirements.',3,9),(46,'Performance consistently exceeds all group requirements.',4,9);
-/*!40000 ALTER TABLE `Scale` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Section`
 --
 
@@ -339,5 +227,125 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+--
+-- Table structure for table `Category`
+--
+
+DROP TABLE IF EXISTS `Category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `rubric_id` int NOT NULL,
+  `weight` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  CONSTRAINT `rubric_FK` FOREIGN KEY (`rubric_id`) REFERENCES `Rubric` (`id`),
+  KEY `title_idx` (`title`),
+  KEY `rubric_idx` (`rubric_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Category`
+--
+
+LOCK TABLES `Category` WRITE;
+/*!40000 ALTER TABLE `Category` DISABLE KEYS */;
+INSERT INTO `Category` VALUES (1,'Quality of Work','Consider the degree to which the student team member provides work that is accurate and complete.',1,'1'),(2,'Timeliness of Work','Consider the student team member\'s timeliness of work.',1,'1'),(3,'Task Support','Consider the amount of task support the student team member gives to other team members.',1,'1'),(4,'Interaction','Consider how the student team member relates and communicates to other team members.',1,'1'),(5,'Attendance','Consider the student team member\'s attendance at the group meetings.  (This includes in class meetings.)',1,'1'),(6,'Responsibility','Consider the ability of the student team member to carry out a chosen or assigned task, the degree to which the student can be relied upon to complete a task.',1,'1'),(7,'Involvement','Consider the extent to which the student team member participates in the exchange of information (does outside research, brings outside knowledge to group).',1,'1'),(8,'Leadership','Consider how the team member engages in leadership activities.',1,'1'),(9,'Overall Performance Rating','Consider the overall performance of the student team member while in the group.',1,'1');
+/*!40000 ALTER TABLE `Category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Enrolled`
+--
+
+DROP TABLE IF EXISTS `Enrolled`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Enrolled` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `student_id` int NOT NULL,
+  `section_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `section_student_idx` (`student_id`,`section_id`),
+  KEY `section_FK_idx` (`section_id`),
+  CONSTRAINT `section_FK` FOREIGN KEY (`section_id`) REFERENCES `Section` (`id`),
+  CONSTRAINT `student_FK` FOREIGN KEY (`student_id`) REFERENCES `Student` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Enrolled`
+--
+
+LOCK TABLES `Enrolled` WRITE;
+/*!40000 ALTER TABLE `Enrolled` DISABLE KEYS */;
+INSERT INTO `Enrolled` VALUES (5,1,1),(6,2,1),(7,3,1),(8,4,1),(9,5,1),(10,6,1),(11,7,1),(12,8,1),(13,9,1),(14,10,1),(15,11,1),(16,12,1),(17,13,1),(18,14,1),(19,15,1),(20,16,1),(21,17,1),(22,18,1),(23,19,1),(24,20,1);
+/*!40000 ALTER TABLE `Enrolled` ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table `Scale`
+--
+
+DROP TABLE IF EXISTS `Scale`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Scale` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `value` int NOT NULL,
+  `category_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `category_FK_idx` (`category_id`),
+  CONSTRAINT `category_FK` FOREIGN KEY (`category_id`) REFERENCES `Category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Scale`
+--
+
+LOCK TABLES `Scale` WRITE;
+/*!40000 ALTER TABLE `Scale` DISABLE KEYS */;
+INSERT INTO `Scale` VALUES (1,'Produces unacceptable work, fails to meet minimum group or project requirements.',0,1),(2,'Occasionally produces work that meets minimum group or project requirements.',1,1),(3,'Meets minimum group or project requirements.',2,1),(4,'Regularly produces work that meets minimum requirements and sometimes exceeds project or group requirements.',3,1),(5,'Produces work that consistently exceeds established group or project requirements.',4,1),(6,'Fails to meet deadlines set by group.',0,2),(7,'Occasionally misses deadlines set by group.',1,2),(8,'Regularly meets deadlines set by group.',2,2),(9,'Consistently meets deadlines set by group and occasionally completes work ahead of schedule.',3,2),(10,'Consistently completes work ahead of schedule.',4,2),(11,'Gives no task support to other members.',0,3),(12,'Sometimes gives task support to other members.',1,3),(13,'Occasionally provides task support to other group members.',2,3),(14,'Consistently provides task support to other group members.',3,3),(15,'Consistently gives more task support than expected.',4,3),(16,'Behavior is detrimental to group.',0,4),(17,'Behavior is inconsistent and occasionally distracts group meetings.',1,4),(18,'Regularly projects appropriate team behavior including: listening to others, and allowing his/her ideas to be criticized.',2,4),(19,'Consistently demonstrates appropriate team behavior.',3,4),(20,'Consistently demonstrates exemplary team behavior.',4,4),(21,'Failed to attend the group meetings.',0,5),(22,'Attended 1%-32% of the group meetings.',1,5),(23,'Attended 33%-65% of the group meetings.',2,5),(24,'Attended 66%-99% of the group meetings.',3,5),(25,'Attended 100% of the group meetings.',4,5),(26,'Is unwilling to carry out assigned tasks.',0,6),(28,'Sometimes carries out assigned tasks but never volunteers to do a task.',1,6),(29,'Carries out assigned tasks but never volunteers to do a task.',2,6),(30,'Consistently carries out assigned tasks and occasionally volunteers for other tasks.',3,6),(31,'Consistently carries out assigned tasks and always volunteers for other tasks.',4,6),(32,'Fails to participate in group discussions and fails to share relevant material.',0,7),(33,'Sometimes participates in group discussions and rarely contributes relevant material for the project.',1,7),(34,'Takes part in group discussions and shares relevant information.',2,7),(35,'Regularly participates in group discussion and sometimes exceeds expectations.',3,7),(36,'Consistently exceeds group expectations for participation and consistently contributes relevant material to project.',4,7),(37,'Does not display leadership skills.',0,8),(38,'Displays minimal leadership skills in team.',1,8),(39,'Occasionally assumes leadership role.',2,8),(40,'Regularly displays good leadership skills.',3,8),(41,'Consistently demonstrates exemplary leadership skills.',4,8),(42,'Performance significantly fails to meet group requirements.',0,9),(43,'Performance fails to meet some group requirements.',1,9),(44,'Performance meets all group requirements.',2,9),(45,'Performance meets all group requirements consistently and sometimes exceeds requirements.',3,9),(46,'Performance consistently exceeds all group requirements.',4,9);
+/*!40000 ALTER TABLE `Scale` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Assessed`
+--
+
+DROP TABLE IF EXISTS `Assessed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Assessed` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `student_id` int NOT NULL,
+  `assessment_id` int NOT NULL,
+  `scale_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `student_FK2_idx` (`student_id`),
+  KEY `scale_FK2_idx` (`scale_id`),
+  KEY `assessment_FK2_idx` (`assessment_id`),
+  CONSTRAINT `assessment_FK2` FOREIGN KEY (`assessment_id`) REFERENCES `Assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `scale_FK2` FOREIGN KEY (`id`) REFERENCES `Scale` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_FK2` FOREIGN KEY (`student_id`) REFERENCES `Student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Assessed`
+--
+
+LOCK TABLES `Assessed` WRITE;
+/*!40000 ALTER TABLE `Assessed` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Assessed` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 -- Dump completed on 2025-03-17 12:48:10
