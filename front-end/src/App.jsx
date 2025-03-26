@@ -4,9 +4,16 @@ import './rubric.css'
 import ScaleItem from './ScaleItem'
 import ScaleTitle from './ScaleTitle';
 import CatalogTitle from './CatalogTitle';
+import { useEffect } from 'react';
 
 
 function App() {
+  useEffect(()=>{
+    async function loadData(){
+      
+    }
+  },[])
+
   function handleScaleChange(name, id, value){
     console.log(name + id + value)
   }
