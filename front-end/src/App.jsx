@@ -1,25 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import './rubric.css'
+import ScaleItem from './ScaleItem'
 
 function App() {
+  function handleScaleChange(name, id, value){
+    console.log(name + id + value)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ScaleItem name="1|1" 
+      display="Jack Smith" 
+      scales={[{id: 1, value: 0},{id: 2, value: 1}, {id:3, value: 2}]}
+      handleScaleChange={handleScaleChange}
+    />
+  )
 }
 
 export default App;
