@@ -2,16 +2,19 @@ import logo from './logo.svg';
 import './App.css';
 import './rubric.css'
 import ScaleItem from './ScaleItem'
-import ScaleTitle from './ScaleTitle';
-import CatalogTitle from './CatalogTitle';
-import { useEffect } from 'react';
+import ScaleTitle from './ScaleTitle'
+import CatalogTitle from './CatalogTitle'
+import { useEffect } from 'react'
+import axios from 'axios'
 
 
 function App() {
   useEffect(()=>{
     async function loadData(){
-      
+      const response = await axios.get('http://127.0.0.1:12000/assessment/1')
+      console.log(response.data)
     }
+    loadData()
   },[])
 
   function handleScaleChange(name, id, value){
