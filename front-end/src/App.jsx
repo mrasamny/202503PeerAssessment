@@ -3,6 +3,7 @@ import './App.css';
 import './rubric.css'
 import ScaleItem from './ScaleItem'
 import ScaleTitle from './ScaleTitle';
+import CatalogTitle from './CatalogTitle';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
 
   return (
     <>
+      <CatalogTitle name="Timliness" description="Blah blah blah"/>
       <ScaleTitle scales={[{id: 1, value: 0},{id: 2, value: 1}, {id:3, value: 2}]}/>
       <ScaleItem name="1|1" 
         display="Jack Smith" 
