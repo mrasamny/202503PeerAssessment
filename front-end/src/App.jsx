@@ -8,15 +8,17 @@ import { useEffect,useState } from 'react'
 import axios from 'axios'
 
 const baseURL = 'http://127.0.0.1:12000'
+const assessmentID = 1
 
 function App() {
   const [rubric, setRubric] = useState(null)
   const [group, setGroup] = useState(null)
+  const [assessed, setAssessed] = useState([])
 
   useEffect(()=>{
 
     async function loadRubricData(){
-      const response = await axios.get(`${baseURL}/assessment/1`)
+      const response = await axios.get(`${baseURL}/assessment/${assessmentID}`)
       //console.log(response.data)
       let rubricData = {}
       response.data.forEach((row, index)=> {
@@ -61,7 +63,9 @@ function App() {
      * group with group_id=1.
      */
     async function loadGroupData(){
-      // TODO: replace this line with your code
+      const studentGroup = await axios.get(`${baseURL}/groupMembers/1`)
+      console.log(studentGroup.data)
+      setGroup(studentGroup.data);
     }
 
     loadGroupData()
@@ -69,16 +73,55 @@ function App() {
 
   },[])
 
-  function handleScaleChange(name, id, value){
-    console.log(name + id + value)
+  function handleScaleChange(name, scale_id, value){
+    const [category_id, student_id] = name.split('|')
+    console.log(student_id + scale_id + value)
+    let new_assessed = assessed.filter((item, index)=> {
+      return (
+        item.category_id === parseInt(category_id) && 
+        item.assessor_student_id === parseInt(student_id)
+      )
+    })
+    setAssessed([...new_assessed,{
+      category_id: parseInt(category_id),
+      assessment_id: assessmentID,
+      assessed_student_id: parseInt(student_id),
+      assessor_student_id: 1,
+      scale_id: scale_id
+    }])
+    console.log([...new_assessed,{
+      category_id: parseInt(category_id),
+      assessment_id: assessmentID,
+      assessed_student_id: parseInt(student_id),
+      assessor_student_id: 1,
+      scale_id: scale_id
+    }])
   }
 
   return (
       !rubric ? <p>Loading data...</p>:
         <>
         {
-        // TODO: replace this line with your code to display peer assessment sheet
-
+        rubric.map((category, index)=>
+          <div key={"Div"+index}>
+          <CatalogTitle 
+            key={"Category"+index}
+            name={category.title} 
+            description={category.description}/>
+          <ScaleTitle
+            key={"ScaleTitle"+index}
+            scales={category.scales}/>
+          {group.map((student, index) => 
+            <ScaleItem
+              key={"ScaleItem"+index}
+              name={category.id + "|" + student.id}
+              display={student.first_name + " " + student.last_name}
+              scales={category.scales}
+              handleScaleChange={handleScaleChange} 
+            />
+          )}
+          </div>
+        )
         /* <CatalogTitle name="Timliness" description="Blah blah blah"/>
         <ScaleTitle scales={[{id: 1, value: 0},{id: 2, value: 1}, {id:3, value: 2}]}/>
         <ScaleItem name="1|1" 
