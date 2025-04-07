@@ -75,27 +75,27 @@ function App() {
 
   function handleScaleChange(name, scale_id, value){
     const [category_id, student_id] = name.split('|')
-    console.log(student_id + scale_id + value)
-    let new_assessed = assessed.filter((item, index)=> {
-      return (
-        item.category_id === parseInt(category_id) && 
-        item.assessor_student_id === parseInt(student_id)
-      )
-    })
-    setAssessed([...new_assessed,{
+    
+    setAssessed([...assessed.filter((item, index)=>
+        parseInt(item.category_id) !== parseInt(category_id) || 
+        parseInt(item.assessed_student_id) !== parseInt(student_id)
+    ),{
       category_id: parseInt(category_id),
       assessment_id: assessmentID,
       assessed_student_id: parseInt(student_id),
       assessor_student_id: 1,
       scale_id: scale_id
     }])
-    console.log([...new_assessed,{
-      category_id: parseInt(category_id),
-      assessment_id: assessmentID,
-      assessed_student_id: parseInt(student_id),
-      assessor_student_id: 1,
-      scale_id: scale_id
-    }])
+    console.log([...assessed.filter((item, index)=>
+      parseInt(item.category_id) !== parseInt(category_id) || 
+      parseInt(item.assessed_student_id) !== parseInt(student_id)
+  ),{
+    category_id: parseInt(category_id),
+    assessment_id: assessmentID,
+    assessed_student_id: parseInt(student_id),
+    assessor_student_id: 1,
+    scale_id: scale_id
+  }])
   }
 
   return (
