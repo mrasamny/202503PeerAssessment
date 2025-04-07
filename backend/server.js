@@ -91,7 +91,7 @@ app.post('/assessed', async function (req, res){
         await connection.commit()
     }catch(error){
         await connection.rollback()
-        console.log(err)
+        console.log(error)
         res.status(500)
     }
 

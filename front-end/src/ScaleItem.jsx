@@ -40,7 +40,9 @@ export default function ScaleItem({name, display, scales, handleScaleChange}){
                         <input type="radio" 
                             name={name} 
                             value={item.value}
-                            id={name+item.id+index}></input>
+                            id={name+item.id+index}
+                            required
+                        ></input>
                     </div>
                 )}
             </div>

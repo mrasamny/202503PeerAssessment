@@ -1,8 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import './rubric.css'
 import ScaleItem from './ScaleItem'
 import ScaleTitle from './ScaleTitle'
+import SubmitButton from './SubmitButton'
 import CatalogTitle from './CatalogTitle'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
@@ -14,6 +14,14 @@ function App() {
   const [rubric, setRubric] = useState(null)
   const [group, setGroup] = useState(null)
   const [assessed, setAssessed] = useState([])
+
+  async function handleSubmit(){
+    try{
+      const response = await axios.post(`${baseURL}/assessed`,assessed)
+    }catch (error){
+      console.log(error)
+    }
+  }
 
   useEffect(()=>{
 
@@ -100,7 +108,7 @@ function App() {
 
   return (
       !rubric ? <p>Loading data...</p>:
-        <>
+        <form >
         {
         rubric.map((category, index)=>
           <div key={"Div"+index}>
@@ -129,7 +137,8 @@ function App() {
           scales={[{id: 1, value: 0},{id: 2, value: 1}, {id:3, value: 2}]}
           handleScaleChange={handleScaleChange}
         /> */}
-        </>
+        <SubmitButton handleSubmit={handleSubmit}></SubmitButton>
+        </form>
   )
 }
 
