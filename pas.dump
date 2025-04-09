@@ -16,75 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Assessed`
---
-
-DROP TABLE IF EXISTS `Assessed`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Assessed` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `assessed_student_id` int NOT NULL,
-  `assessment_id` int NOT NULL,
-  `assessor_student_id` int NOT NULL,
-  `scale_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `student_FK2_idx` (`assessed_student_id`),
-  KEY `assessment_FK2_idx` (`assessment_id`),
-  KEY `assessor_student_FK_idx` (`assessor_student_id`),
-  KEY `scale_FK_idx` (`scale_id`),
-  CONSTRAINT `assessed_student_FK` FOREIGN KEY (`assessed_student_id`) REFERENCES `Student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `assessment_FK2` FOREIGN KEY (`assessment_id`) REFERENCES `Assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `assessor_student_FK` FOREIGN KEY (`assessor_student_id`) REFERENCES `Student` (`id`),
-  CONSTRAINT `scale_FK` FOREIGN KEY (`scale_id`) REFERENCES `Scale` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Assessed`
---
-
-LOCK TABLES `Assessed` WRITE;
-/*!40000 ALTER TABLE `Assessed` DISABLE KEYS */;
-INSERT INTO `Assessed` VALUES (64,1,1,2,1),(65,2,1,2,2),(66,3,1,2,3),(67,4,1,2,4),(68,5,1,2,5),(69,1,1,2,1),(70,2,1,2,2),(71,3,1,2,3),(72,4,1,2,4),(73,5,1,2,5);
-/*!40000 ALTER TABLE `Assessed` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Assessment`
---
-
-DROP TABLE IF EXISTS `Assessment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Assessment` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `deploy_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `rubric_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `date_idx` (`deploy_date`),
-  KEY `name_idx` (`name`),
-  KEY `deploy_date_idx` (`deploy_date`),
-  KEY `rubric_FK2_idx` (`rubric_id`),
-  CONSTRAINT `rubric_FK2` FOREIGN KEY (`rubric_id`) REFERENCES `Rubric` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Assessment`
---
-
-LOCK TABLES `Assessment` WRITE;
-/*!40000 ALTER TABLE `Assessment` DISABLE KEYS */;
-INSERT INTO `Assessment` VALUES (1,'Peer Assessment 1','2025-03-23 08:00:00','2025-03-23 17:00:00','2025-03-21 16:34:23',1);
-/*!40000 ALTER TABLE `Assessment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Category`
 --
 
@@ -388,5 +319,75 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+--
+-- Table structure for table `Assessed`
+--
+
+DROP TABLE IF EXISTS `Assessed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Assessed` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `assessed_student_id` int NOT NULL,
+  `assessment_id` int NOT NULL,
+  `assessor_student_id` int NOT NULL,
+  `scale_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `student_FK2_idx` (`assessed_student_id`),
+  KEY `assessment_FK2_idx` (`assessment_id`),
+  KEY `assessor_student_FK_idx` (`assessor_student_id`),
+  KEY `scale_FK_idx` (`scale_id`),
+  CONSTRAINT `assessed_student_FK` FOREIGN KEY (`assessed_student_id`) REFERENCES `Student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `assessment_FK2` FOREIGN KEY (`assessment_id`) REFERENCES `Assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `assessor_student_FK` FOREIGN KEY (`assessor_student_id`) REFERENCES `Student` (`id`),
+  CONSTRAINT `scale_FK` FOREIGN KEY (`scale_id`) REFERENCES `Scale` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Assessed`
+--
+
+LOCK TABLES `Assessed` WRITE;
+/*!40000 ALTER TABLE `Assessed` DISABLE KEYS */;
+INSERT INTO `Assessed` VALUES (64,1,1,2,1),(65,2,1,2,2),(66,3,1,2,3),(67,4,1,2,4),(68,5,1,2,5),(69,1,1,2,1),(70,2,1,2,2),(71,3,1,2,3),(72,4,1,2,4),(73,5,1,2,5);
+/*!40000 ALTER TABLE `Assessed` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Assessment`
+--
+
+DROP TABLE IF EXISTS `Assessment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Assessment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `deploy_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `rubric_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `date_idx` (`deploy_date`),
+  KEY `name_idx` (`name`),
+  KEY `deploy_date_idx` (`deploy_date`),
+  KEY `rubric_FK2_idx` (`rubric_id`),
+  CONSTRAINT `rubric_FK2` FOREIGN KEY (`rubric_id`) REFERENCES `Rubric` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Assessment`
+--
+
+LOCK TABLES `Assessment` WRITE;
+/*!40000 ALTER TABLE `Assessment` DISABLE KEYS */;
+INSERT INTO `Assessment` VALUES (1,'Peer Assessment 1','2025-03-23 08:00:00','2025-03-23 17:00:00','2025-03-21 16:34:23',1);
+/*!40000 ALTER TABLE `Assessment` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 -- Dump completed on 2025-04-09 16:00:57
