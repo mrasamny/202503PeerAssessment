@@ -24,6 +24,25 @@ app.get("/course", async function(req, res){
 })
 
 //
+// Deployment
+//
+
+app.get("/deployment/:deployment_code", async function(req, res){
+    let code = req.params.deployment_code
+    try{
+        const[rows, fields] = await connection.execute(
+            'SELECT * FROM pas.EvalDeployment \
+                where deployment_code=?;',
+            [code]
+        )
+        res.status(200).send(rows[0])
+    } catch(err){
+        console.log(err)
+        res.status(500)
+    }
+})
+
+//
 // Group endpoints
 //
 

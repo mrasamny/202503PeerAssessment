@@ -9,7 +9,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/evalSheet/:assessment_id/:assessor_id" element={<EvalSheet/>}></Route>
+          <Route path="/evalSheet/:deployment_code" element={<EvalSheet/>}></Route>
           <Route path="*" element={<ErrorPage/>}></Route>
         </Routes>
       </BrowserRouter>

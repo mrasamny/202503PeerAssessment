@@ -2,7 +2,6 @@ import  './rubric.css'
 import { useRef } from 'react'
 
 export default function ScaleItem({name, display, scales, handleScaleChange}){
-    //const [prevHighlight, setPrevHighlight] = useState(null)
     const prevHighlight = useRef(null)
 
     function handleHighlight(id){
@@ -12,7 +11,6 @@ export default function ScaleItem({name, display, scales, handleScaleChange}){
         }
         const element = document.getElementById(id)
         element.classList.add('highlight')
-        //setPrevHighlight(element)
         prevHighlight.current = element
     }
 
@@ -32,7 +30,6 @@ export default function ScaleItem({name, display, scales, handleScaleChange}){
                         key={name+item.id+index}
                         id={name+item.id}
                         onClick={(e) => {
-                            e.preventDefault()
                             handleHighlight(name+item.id)
                             handleChecked(name+item.id+index)
                             handleScaleChange(name, item.id, item.value)
